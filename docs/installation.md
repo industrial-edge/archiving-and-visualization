@@ -1,6 +1,6 @@
 1. Clone this repository
 
-   ![gitclone](graphics/git1.png)
+   ![gitclone](graphics/clonerepo.png)
 
    STRG+SHIFT+P in VSCode:
 
