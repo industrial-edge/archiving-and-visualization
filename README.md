@@ -9,6 +9,7 @@ Archiving and Visualization Panel demo application for Industrial Edge
   - [Requirements](#requirements)
     - [Components](#components)
     - [Helpful tools](#helpful-tools)
+    - [TIA Project](#tia-project)
   - [Prerequisite](#prerequisite)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -50,6 +51,12 @@ The Industrial Edge Application "Archiving & Visualization Demo" collects data f
 
 - Any development environment (e.g. Visual Studio Code, Eclipse, …)
 - Docker Extension for your development environment e.g. Visual Studio Code Extension
+
+### TIA Project
+
+The used TIA Portal project can be found in the [miscellenous repository](https://github.com/industrial-edge/miscellenous) under the following name and is also used for several further application examples:
+
+- [tia-tank-application-20201028.7z](https://github.com/industrial-edge/miscellenous/blob/main/tia-tank-application-20201028.7z)
 
 ## Prerequisite
 
