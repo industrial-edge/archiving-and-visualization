@@ -95,4 +95,4 @@ Thanks for your interest in contributing. Anybody is free to report bugs, unclea
 
 ## License & Legal Information
 
-Please read the [Legal information](Legal_information.md).
+Please read the [Legal information](LICENSE.md).
