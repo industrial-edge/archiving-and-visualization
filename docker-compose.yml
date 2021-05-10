@@ -5,7 +5,7 @@ services:
   datacollector:
     build:
       context: ./src/data-collector
-    image: data-collector_edge:0.0.1
+    image: data-collector_edge:0.0.2
     restart: always
     networks:
       - proxy-redirect

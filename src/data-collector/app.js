@@ -64,6 +64,29 @@ const influx = new Influx.InfluxDB({
   ]
 })
 
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+createDatabase = async (influx, influxdbDatabase) => {
+  i = 0
+  do {
+    await delay(5000);
+    hosts = await influx.ping(5000)
+    console.log(hosts)
+    i++;
+    console.log(`Try to connect to InfluxDB: try number ${i}`)
+    console.log(`influxdb Status: ${hosts[0].online}`)
+  } while (!hosts[0].online)
+  console.log("Influx DB online");
+  influx.createDatabase(influxdbDatabase)
+} 
+
+createDatabase(influx, INFLUXDB_DATABASE).then(res => {
+  console.log("Database created");
+})
+
+
+/*
 //create database
 function createDatabase() {
   influx.createDatabase(INFLUXDB_DATABASE)
@@ -72,6 +95,7 @@ function createDatabase() {
 
 //wait 12 seconds before creating database (influx container needs a while to initialize)
 setTimeout(createDatabase, 12000);
+*/
 
 /* Publish response after recieved message*/
 client.on('message', function (topic, message) {
