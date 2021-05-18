@@ -37,6 +37,8 @@ services:
     restart: always
     networks:
       - internal-network
+    volumes: 
+      - dashboard-storage:/var/lib/grafana
     ports:
       - "33000:3000"
     mem_limit: 100mb
@@ -52,3 +54,5 @@ networks:
 
 volumes:
   data:
+  dashboard-storage:
+    name: dashboard-storage
