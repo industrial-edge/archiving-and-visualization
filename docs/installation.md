@@ -1,3 +1,4 @@
+## Build Application
 1. Clone this repository
 
    ![gitclone](graphics/clonerepo.png)
@@ -21,25 +22,60 @@
 5. Go-To IE Publisher, and select newly created App. Then select **"+Configurations"**
    ![sometext](graphics/addconfig.png)
 
-6. Add a new Configuration and enter all required fields. In the final step, add the file contained in **/cfg-data/** as a template
-
+6. Add a new Configuration and enter all required fields:
    ![sometext](graphics/addconfig2.png)
 
+   ```txt
+   Display Name: Configuration
+   Description: JSONForms Configuration
+   Host Path: ./cfg-data/
+   Add Template
+    - Name: JSONForms
+    - Description: JSONForms Configuration
+    - JSON Schema: set checkbox
+   ```
+   In the final step, add the file **/datacollector/config/config.json** as a template file. 
+   This template was creared with JSON Schema. To find out how to create your own template check out the IEM Operations Documentation.
+
    ![sometext](graphics/addconfig3.png)
+
+   **Hint:** If no config file is selected during App installation, then the default values from **datacollector/config/env-config.json** are taken:
+
+   ```txt
+   {
+      "MQTT": {
+         "HOST": "ie-databus",
+         "PORT": "1883",
+         "USERNAME": "edge",
+         "PASSWORD": "edge",
+         "DEFAULT_TOPIC_NAME": "ie/d/j/simatic/v1/s7c1/dp/",
+         "DEFAULT_METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/s7c1/dp",
+         "DATA_SOURCE_NAME": "PLC_1"
+      },
+      "INFLUXDB": {
+         "HOST": "influxdb",
+         "PORT": "8086",
+         "USERNAME": "root",
+         "PASSWORD": "root",
+         "MEASUREMENT": "edge",
+         "DATABASE": "databus_values"
+      }
+   }
+   ```
 
 7. Now select **"Add New Version"** and select **docker-compose v2.4**
    
    ![sometext](graphics/dockercompose.png)
 
-8. In the top right corner select **"Import YAML file"** and select the **docker-compose.yml** file from your directory. Click **"OK"**
+8. In the top right corner select **"Import YAML file"** and select the **docker-compose.yml** file from your directory. Click **"OK"**. The warnings can be ignored.
 
 9. **Optional:** Configure a reverse proxy in the "Network"-section of the grafana service: 
 
-  ![sometext](graphics/reverseproxy.png)
+   ![sometext](graphics/reverseproxy.png)
 
-  **Notice:** Port exposure must be removed in this case. To do this, simply select the trash-icon in the very bottom.
+   **Notice:** Port exposure must be removed in this case. To do this, simply select the trash-icon in the very bottom.
 
-  **Save** changes.
+   **Save** changes.
 
 10. Select **"Review"** then **"Validate & Create"** on the top right. Then select **"Create"**
     
@@ -47,17 +83,31 @@
 
 11. Afterwards, select **"Start Upload"**.
 
-   ![sometext](graphics/startupload.png)
+      ![sometext](graphics/startupload.png)
+
+## Install Application on Edge Device
+
 
 12. Once the App is successfully uploaded to your IEM, Go-To **"My Projects"** and select the newly created Application. Then select **"Install"**
 
-   ![sometext](graphics/uploaddone.png)
+      ![sometext](graphics/uploaddone.png)
 
-13. In the **"Configurations"**-Tab click on the pencil to review your configuration file. Based on this config, you can configure the Application to use a different database-name, different credentials for the IE Databus or a different Datasource name. "DATA_SOURCE_NAME": "**PLC_1/default**" was selected here because our PLC-Name in SIMATIC S7-Connector is "PLC_1" and we are using Bulk-publish, so we need the keyword "default".
+13. In the **"Configurations"**-Tab, select the green checkmark and fill out the required information: 
 
-   ![sometext](graphics/displayconfig.png)
 
-14. Install the Application on your Edge Device and remember to select this configuration file. 
+      ![sometext](graphics/displayconfig.png)
+
+      ```txt
+      MQTT Broker IP: ie-databus 
+      Port: 1883
+      User: edge
+      Password: edge
+      Data Source Name: PLC_1
+      InfluxDB IP: influxdb
+      Database name: databus_values
+      ```
+
+14. Install the Application on your Edge Device. 
 
 15. Open Grafana and login with following credentials, afterwards change password if needed:
     
@@ -84,14 +134,14 @@
 
 20. In Grafana, Add a new Panel in the Dashboard section. You will be able to select and configure your Datapoints.
 
-  ![sometext](graphics/grafanaplot.png)
+   ![sometext](graphics/grafanaplot.png)
 
 21. Select the values you would like to plot and remove the **"Group By" options** and the **"SELECT mean(value)"** option.
 
-  ![dashboard](graphics/dashboard_full.png)
+   ![dashboard](graphics/dashboard_full.png)
 
 22. When finished with the dashboard, save it, then select settings in the top section to export it as a JSON-file. 
 
-  ![dashboard](graphics/json-dashboard.png)
+   ![dashboard](graphics/json-dashboard.png)
 
   Save its content as **"operation-panel.json"**. To learn how to incorporate this dashboard into your application, Check out **"Archiving and Operation"**.
