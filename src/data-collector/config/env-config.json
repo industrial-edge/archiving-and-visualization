@@ -1,0 +1,19 @@
+{
+    "MQTT": {
+        "HOST": "ie-databus",
+        "PORT": "1883",
+        "USERNAME": "edge",
+        "PASSWORD": "edge",
+        "DEFAULT_TOPIC_NAME": "ie/d/j/simatic/v1/s7c1/dp/",
+        "DEFAULT_METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/s7c1/dp",
+        "DATA_SOURCE_NAME": "PLC_1"
+    },
+    "INFLUXDB": {
+        "HOST": "influxdb",
+        "PORT": "8086",
+        "USERNAME": "root",
+        "PASSWORD": "root",
+        "MEASUREMENT": "edge",
+        "DATABASE": "databus_values"
+    }
+}
