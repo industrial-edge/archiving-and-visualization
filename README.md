@@ -55,16 +55,17 @@ The Industrial Edge Application "Archiving & Visualization Demo" collects data f
 
 ### TIA Project
 
-The used TIA Portal project can be found in the [miscellenous repository](https://github.com/industrial-edge/miscellaneous/tree/main/tank%20application) under the following name and is also used for several further application examples:
+The used TIA Portal project can be found in the [miscellaneous repository](https://github.com/industrial-edge/miscellaneous) in the tank application folder and is also used for several further application examples:
 
-- [tia-tank-application.7z](https://github.com/industrial-edge/miscellaneous/blob/main/tank%20application/tia-tank-application.7z)
+- [Tia Tank Application](https://github.com/industrial-edge/miscellaneous/tree/main/tank%20application)
 
 ## Prerequisite
 
 Use SIMATIC S7 Connector in bulk publish mode to collect datapoints from the Demo project "Tank Application". Name the PLC "PLC_1" and select following Datapoints using the Browse functionality:
+
 - GDB_signals_tankSignals_actLevel (Read/100ms)
 - GDB_signals_tankSignals_actTemperature (Read/100ms)
-- GDB_process_numberProdued (Read/100ms)
+- GDB_process_numberProduced (Read/100ms)
 - GDB_process_numberFaulty (Read/100ms)
 - GDB_hmiSignals_HMI_Nextbottle (Read&Write/100ms)
 
