@@ -15,7 +15,15 @@ services:
     volumes:
       - './publish/:/publish/'
       - './cfg-data/:/cfg-data/'
-    mem_limit: 100mb
+    mem_limit: 200mb
+    # environment:
+    #   - JS_MAX_OLD_SPACE_SIZE=150
+
+    # normal command
+    #command: ["node", "--max-old-space-size=150", "app.js"]
+
+    # command which enables debugging port
+    #command: ["node", "--inspect=0.0.0.0:9229", "--max-old-space-size=150", "app.js"]
 
   #### InfluxDB ####
   influxdb:
@@ -27,7 +35,7 @@ services:
       - internal-network
     volumes:
       - data:/var/lib/influxdb
-    mem_limit: 250mb
+    mem_limit: 500mb
 
   #### Grafana ####
   grafana:
@@ -41,7 +49,7 @@ services:
       - dashboard-storage:/var/lib/grafana
     ports:
       - "33000:3000"
-    mem_limit: 100mb
+    mem_limit: 300mb
 
 
 #### Network ####

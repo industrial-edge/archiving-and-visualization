@@ -1,1 +1,2 @@
-src/data-collector/node_modules/*
+/build/
+node_modules/

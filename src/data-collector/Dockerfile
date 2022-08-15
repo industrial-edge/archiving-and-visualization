@@ -13,4 +13,4 @@ RUN npm install --production
 COPY . .
 
 #set start command for container
-CMD [ "node", "app.js" ]
+CMD [ "node", "--max-old-space-size=150", "app.js" ]

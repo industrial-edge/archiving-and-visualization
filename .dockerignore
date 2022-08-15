@@ -1,0 +1,13 @@
+*.tar
+*.tar.gz
+*.tar.xz
+*.tgz
+*.o
+*.d
+*.c
+*.cpp
+*.h
+/build/app
+/build/export
+/build/out
+/build/ws

@@ -40,20 +40,18 @@ client.on('connect', () => {
     });
 });
 
-/* Parse Metadata after recieved message*/
+/* Parse Metadata after received message*/
 client.on('message', function (topic, message) {
     msg = message.toString()
-    console.log(`Metadata: MQTT: Recieved message ${msg} on MQTT-Topic ${topic} responding with corresponding answer`)
+    console.log(`Metadata: MQTT: Received message ${msg} on MQTT-Topic ${topic}`)
     // parse Metadata
     if (topic === MQTT.DEFAULT_METADATA_TOPIC_NAME) {
+        console.log(`Metadata: MQTT: topic matches`)
         var jsonmsg = JSON.parse(msg);
-        // Check Payload 
-        if (jsonmsg.seq == undefined) {
-            return null;
-        }
         // Iterate through connections
         jsonmsg.connections.forEach(connection => {
             if ((connection.name == MQTT.DATA_SOURCE_NAME)) {
+                console.log(`Metadata: MQTT: Connection name matches`)
                 let dataPoints = connection.dataPoints;
 
                 //  Iterate through dataPoints
@@ -63,8 +61,8 @@ client.on('message', function (topic, message) {
                     // Iterate through dataPointDefinitions
                     dataPointDefinitions.forEach(dataPointDefinition => {
                         console.log(dataPointDefinition.name + ': ' + dataPointDefinition.id)
-                        nameIdMap.set(dataPointDefinition.name, dataPointDefinition.id);
-                        idNameMap.set(dataPointDefinition.id, dataPointDefinition.name)
+                        nameIdMap.set(dataPointDefinition.name, dataPointDefinition);
+                        idNameMap.set(dataPointDefinition.id, dataPointDefinition)
                     });
                 });
             }
