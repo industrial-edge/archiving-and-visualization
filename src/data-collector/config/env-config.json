@@ -6,7 +6,7 @@
         "PASSWORD": "edge",
         "DEFAULT_TOPIC_NAME": "ie/d/j/simatic/v1/css7pdriver1/dp/r/PLC_6_1516F_Perf/100ms",
         "DEFAULT_METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/css7pdriver1/dp",
-        "DATA_SOURCE_NAME": "PLC_6_1516F_Perf2"
+        "DATA_SOURCE_NAME": "PLC_6_1516F_Perf"
     },
     "INFLUXDB": {
         "HOST": "influxdb",
