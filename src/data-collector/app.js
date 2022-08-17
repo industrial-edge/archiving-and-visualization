@@ -65,43 +65,24 @@ client.on('message', function (topic, message) {
  
     // timeseries publish format
     if(jsonmsg.records) {
-      if(false) {
-        // old database format, each tag is an own measurement
-        for(const record of jsonmsg.records) {
-          const ts = PayloadValueDecoder.timeStringToNs(record.ts);
-          for(const element of jsonmsg.records) {
-            const dp = METADATA.ID_NAME_MAP.get(element.id);
-            if(dp) {
-              const point = {
-                measurement: dp.name,
-                fields: { value: PayloadValueDecoder.decodeValue(element.val, dp.dataType) },
-                timestamp: ts
-              };
-              points.push(point);
-            }
+      // new database format: one measurement, all tags are fields
+      for(const record of jsonmsg.records) {
+        const ts = PayloadValueDecoder.timeStringToNs(record.ts);
+        const point = {
+          measurement: MQTT.DATA_SOURCE_NAME,
+          timestamp: ts,
+          fields: {}
+        };
+        let fieldCount = 0;
+        for(const element of record.vals) {
+          const dp = METADATA.ID_NAME_MAP.get(element.id);
+          if(dp) {
+            point.fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
+            fieldCount++;
           }
         }
-      }
-      else {
-        // new database format: one measurement, all tags are fields
-        for(const record of jsonmsg.records) {
-          const ts = PayloadValueDecoder.timeStringToNs(record.ts);
-          const point = {
-            measurement: MQTT.DATA_SOURCE_NAME,
-            timestamp: ts,
-            fields: {}
-          };
-          let fieldCount = 0;
-          for(const element of record.vals) {
-            const dp = METADATA.ID_NAME_MAP.get(element.id);
-            if(dp) {
-              point.fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
-              fieldCount++;
-            }
-          }
-          if(fieldCount > 0) {
-            points.push(point);
-          }
+        if(fieldCount > 0) {
+          points.push(point);
         }
       }
     }
@@ -112,17 +93,29 @@ client.on('message', function (topic, message) {
       if(jsonmsg.ts) {
         globalTs = PayloadValueDecoder.timeStringToNs(jsonmsg.ts);
       }
+      // group the elements by timestamps; all identical timestamps will be put into the same point
+      let fields_by_ts = new Map();
       for(const element of jsonmsg.vals) {        
         const dp = METADATA.ID_NAME_MAP.get(element.id);
         if(dp) {
           const ts = element.ts ? PayloadValueDecoder.timeStringToNs(element.ts) : globalTs;
-          const point = {
-            measurement: dp.name,
-            fields: { value: PayloadValueDecoder.decodeValue(element.val, dp.dataType) },
-            timestamp: ts
-          };
-          points.push(point);
+          if(ts) {
+            let fields = fields_by_ts.get(ts);
+            if(!fields) {
+              fields = {};
+              fields_by_ts.set(ts, fields);
+            }
+            fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
+          }
         }
+      }
+      for(let entry of fields_by_ts.entries()) {
+        const point = {
+          measurement: MQTT.DATA_SOURCE_NAME,
+          timestamp: entry[0],
+          fields: entry[1]
+        };
+        points.push(point);
       }
     }
 
