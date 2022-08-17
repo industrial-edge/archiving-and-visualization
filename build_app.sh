@@ -36,7 +36,7 @@ export DOCKERIMAGEFILE3="${BUILDFOLDER}/${SERVICENAME3}_dockerimage.tar"
 SERVICE_TO_IMAGE_JSON="{ \"${SERVICENAME1}\": \"${DOCKERIMAGEFILE1}\", \"${SERVICENAME2}\": \"${DOCKERIMAGEFILE2}\", \"${SERVICENAME3}\": \"${DOCKERIMAGEFILE3}\"}"
 
 export PRODHUB_HOSTPATH="portalhub.eu1.edge.siemens.cloud/${APPREPONAME}"
-export APPPUB=ie-app-publisher-linux-1.5.4
+export APPPUB=ie-app-publisher-linux
 
 export GIT_FULL_VERSION="$(git describe --always --tags --dirty)"
 if [ -z "${APPVERSION}" ] ; then
@@ -69,9 +69,9 @@ rm -rf "${WORKSPACEFOLDER}" "${APPFOLDER}" "${EXPORTFOLDER}"
 mkdir -p "${WORKSPACEFOLDER}" "${APPFOLDER}" "${EXPORTFOLDER}"
 cd "${WORKSPACEFOLDER}"
 $APPPUB ws init .
-cp "${YAMLFILE}" "${APPFOLDER}/docker-compose.yml"
 
 # replace the docker image name in the docker-compose.yaml including the tag
+cp "${YAMLFILE}" "${APPFOLDER}/docker-compose.yml"
 yq -i ".services.${SERVICENAME1}.image=\"${DOCKER_IMG_NAME_FULL1}\"" "${APPFOLDER}/docker-compose.yml"
 yq -i ".services.${SERVICENAME2}.image=\"${DOCKER_IMG_NAME_FULL2}\"" "${APPFOLDER}/docker-compose.yml"
 yq -i ".services.${SERVICENAME3}.image=\"${DOCKER_IMG_NAME_FULL3}\"" "${APPFOLDER}/docker-compose.yml"
@@ -80,7 +80,6 @@ yq -i 'del(.services.[].build)' "${APPFOLDER}/docker-compose.yml"
 # call app publisher to create the app file
 $APPPUB sa create -a "${APPNAME}" -r "${APPREPONAME}" -d "${APPDESC}" -i "${ICONPATH}" -p "${APPID}"
 
-# TODO: option '-j' is missing
 $APPPUB sa addsaconfiguration --verbose -a "${APPNAME}" -n "Configuration" -d "JSONForms Configuration" -p "./cfg-data/" -x -t "JSONForms" -e "JSONForms Configuration" -f "${WORKDIR}/src/data-collector/config/config.json" -j
 
 $APPPUB sa createversion --verbose -a "${APPNAME}" -v "${APPVERSION}" -y "${APPFOLDER}/docker-compose.yml" -j "${SERVICE_TO_IMAGE_JSON}" -n "{\"${SERVICENAME1}\":[{\"name\":\"${SERVICENAME1}\",\"protocol\":\"HTTP\",\"port\":\"${SERVICEPORT1}\",\"headers\":\"{\\\"proxy_cache_revalidate\\\":\\\"on\\\",\\\"proxy_cache_valid\\\":\\\"5m\\\"}\",\"rewriteTarget\":\"/\", \"isSecureRedirection\":false}]}" -s "${SERVICENAME1}" -t "FromBoxReverseProxy" -u "${SERVICENAME1}/" -r ""
