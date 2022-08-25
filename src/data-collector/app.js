@@ -77,8 +77,26 @@ client.on('message', function (topic, message) {
         for(const element of record.vals) {
           const dp = METADATA.ID_NAME_MAP.get(element.id);
           if(dp) {
-            point.fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
-            fieldCount++;
+            if(dp.valueRank === undefined
+              || dp.valueRank == -1
+              || (dp.valueRank <= -2 && element.val.length === undefined))
+            {
+              // scalar value
+              point.fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
+              fieldCount++;
+            }
+            else {
+              // TODO: support sample_rate
+              // TODO: support multidim arrays
+              const arrLength = element.val.length
+              if(dp.arrayDimensions && dp.arrayDimensions.length == 1 && arrLength > 0) {
+                for(let i = 0; i < arrLength; i++) {
+                  // scalar value
+                  point.fields[`${dp.name}[${i}]`] = PayloadValueDecoder.decodeValue(element.val[i], dp.dataType);
+                  fieldCount++;
+                }
+              }
+            }
           }
         }
         if(fieldCount > 0) {
@@ -95,7 +113,7 @@ client.on('message', function (topic, message) {
       }
       // group the elements by timestamps; all identical timestamps will be put into the same point
       let fields_by_ts = new Map();
-      for(const element of jsonmsg.vals) {        
+      for(const element of jsonmsg.vals) {
         const dp = METADATA.ID_NAME_MAP.get(element.id);
         if(dp) {
           const ts = element.ts ? PayloadValueDecoder.timeStringToNs(element.ts) : globalTs;
@@ -105,6 +123,9 @@ client.on('message', function (topic, message) {
               fields = {};
               fields_by_ts.set(ts, fields);
             }
+            // TODO: support arrays
+            // TODO: support multidim arrays
+            // TODO: support sample_rate
             fields[dp.name] = PayloadValueDecoder.decodeValue(element.val, dp.dataType);
           }
         }
