@@ -16,7 +16,7 @@ mkdir -p "${BUILDFOLDER}" "${OUTFOLDER}"
 export YAMLFILE="${WORKDIR}/docker-compose.yml"
 export ICONPATH="${WORKDIR}/docs/graphics/icon.png"
 export APPREPONAME="mtarchandvis"
-export APPNAME="Archiving and Visualization (MT)"
+export APPNAME="Archiving and Visualization"
 export APPDESC="Archive and show tags values from IE Databus"
 export APPID="tf2kycZ2LjFbL85hlfdrppdFFgvXgJ5y"
 
