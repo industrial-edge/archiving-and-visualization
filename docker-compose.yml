@@ -6,9 +6,9 @@ services:
     build:
       context: ./src/data-collector
     image: data-collector_edge:0.0.2
-    restart: always
+    restart: unless-stopped
     networks:
-      - proxy-redirect
+      - proxynet
       - internal-network
     depends_on: 
       - influxdb
@@ -16,45 +16,49 @@ services:
       - './publish/:/publish/'
       - './cfg-data/:/cfg-data/'
     mem_limit: 200mb
-    # environment:
-    #   - JS_MAX_OLD_SPACE_SIZE=150
 
     # normal command
     #command: ["node", "--max-old-space-size=150", "app.js"]
 
     # command which enables debugging port
-    #command: ["node", "--inspect=0.0.0.0:9229", "--max-old-space-size=150", "app.js"]
+    command: ["node", "--inspect=0.0.0.0:9229", "--max-old-space-size=150", "app.js"]
 
   #### InfluxDB ####
   influxdb:
     build:
       context: ./src/influxdb
     image: influxdb_edge:0.0.1
-    restart: always
+    restart: unless-stopped
     networks:
       - internal-network
+      - proxynet
     volumes:
       - data:/var/lib/influxdb
     mem_limit: 500mb
+    expose:
+      - 8086
 
   #### Grafana ####
   grafana:
     build:
       context: ./src/grafana
     image: grafana_edge:0.0.1
-    restart: always
+    restart: unless-stopped
     networks:
       - internal-network
+      - proxynet
     volumes: 
       - dashboard-storage:/var/lib/grafana
-    ports:
-      - "33000:3000"
+    #ports:
+    #  - "33000:3000"
+    expose:
+      - 3000
     mem_limit: 300mb
 
 
 #### Network ####
 networks:
-  proxy-redirect:
+  proxynet:
     external: true
     name: proxy-redirect
   internal-network:
