@@ -86,12 +86,12 @@ client.on('message', function (topic, message) {
               fieldCount++;
             }
             else {
+              // array value
               // TODO: support sample_rate
               // TODO: support multidim arrays
               const arrLength = element.val.length
               if(dp.arrayDimensions && dp.arrayDimensions.length == 1 && arrLength > 0) {
                 for(let i = 0; i < arrLength; i++) {
-                  // scalar value
                   point.fields[`${dp.name}[${i}]`] = PayloadValueDecoder.decodeValue(element.val[i], dp.dataType);
                   fieldCount++;
                 }
