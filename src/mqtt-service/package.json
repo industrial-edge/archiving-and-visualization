@@ -1,0 +1,17 @@
+{
+  "name": "mqtt-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thomas Boehmlaender",
+  "license": "ISC",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.0",
+    "cors": "^2.8.5",
+    "influx": "^5.9.3",
+    "mqtt": "^4.3.7"
+  }
+}

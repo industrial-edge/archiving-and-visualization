@@ -1,0 +1,179 @@
+{
+    "uischema": {
+        "type": "VerticalLayout",
+        "elements": [
+            {
+                "type": "Group",
+                "elements": [
+                    {
+                        "type": "HorizontalLayout",
+                        "elements": [
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/MQTT/properties/HOST",
+                                "label": "MQTT Broker IP"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/MQTT/properties/PORT",
+                                "label": "Port"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Group",
+                        "elements": [
+                            {
+                                "type": "HorizontalLayout",
+                                "elements": [
+                                    {
+                                        "type": "Control",
+                                        "scope": "#/properties/MQTT/properties/USERNAME",
+                                        "label": "Username"
+                                    },
+                                    {
+                                        "type": "Control",
+                                        "scope": "#/properties/MQTT/properties/PASSWORD",
+                                        "label": "Password"
+                                    }
+                                ]
+                            }
+                        ],
+                        "label": "User"
+                    }
+                ],
+                "label": "IE Databus"
+            },
+            {
+                "type": "Group",
+                "elements": [
+                    {
+                        "type": "VerticalLayout",
+                        "elements": [
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/MQTT/properties/DATA_SOURCE_NAME",
+                                "label": "Data Source Name"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/MQTT/properties/METADATA_TOPIC_NAME",
+                                "label": "Connector Metadata Topic"
+                            }
+                        ]
+                    }
+                ],
+                "label": "Connector Configuration"
+            },
+            {
+                "type": "Group",
+                "elements": [
+                    {
+                        "type": "HorizontalLayout",
+                        "elements": [
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/INFLUXDB/properties/HOST",
+                                "label": "InfluxDB IP"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/INFLUXDB/properties/PORT",
+                                "label": "InfluxDB Port"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/INFLUXDB/properties/BUCKET",
+                                "label": "Bucket Name"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/INFLUXDB/properties/ORG",
+                                "label": "Organization"
+                            },
+                            {
+                                "type": "Control",
+                                "scope": "#/properties/INFLUXDB/properties/TOKEN",
+                                "label": "Token"
+                            }
+                        ]
+                    }
+                ],
+                "label": "InfluxDB"
+            }
+        ]
+    },
+    "dataschema": {
+        "type": "object",
+        "required": [
+            "MQTT"
+        ],
+        "properties": {
+            "MQTT": {
+                "type": "object",
+                "default": {
+                    "USERNAME": "edge",
+                    "PASSWORD": "edge",
+                    "HOST": "ie-databus",
+                    "PORT": "1883",
+                    "METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/opcuac1/dp",
+                    "DATA_SOURCE_NAME": "Tank"
+                },
+                "required": [
+                    "USERNAME",
+                    "PASSWORD",
+                    "DATA_SOURCE_NAME"
+                ],
+                "properties": {
+                    "HOST": {
+                        "type": "string"
+                    },
+                    "PORT": {
+                        "type": "string"
+                    },
+                    "USERNAME": {
+                        "type": "string",
+                        "minLength": 4
+                    },
+                    "PASSWORD": {
+                        "type": "string",
+                        "minLength": 4
+                    },
+                    "METADATA_TOPIC_NAME": {
+                        "type": "string"
+                    },
+                    "DATA_SOURCE_NAME": {
+                        "type": "string"
+                    }
+                }
+            },
+            "INFLUXDB": {
+                "type": "object",
+                "default": {
+                    "HOST": "http://influxdb",
+                    "PORT": "8086",
+                    "ORG": "edge",
+                    "BUCKET": "databus_values",
+                    "TOKEN": "industrialedge"
+                },
+                "properties": {
+                    "HOST": {
+                        "type": "string"
+                    },
+                    "PORT": {
+                        "type": "string"
+                    },
+                    "ORG": {
+                        "type": "string"
+                    },
+                    "BUCKET": {
+                        "type": "string"
+                    },
+                    "TOKEN": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,58 +1,63 @@
-version: '2.4'
+version: "2.4"
 #### Services ####
 services:
-  #### Data-Collector ####
-  datacollector:
+  #### MQTT-Service ####
+  mqtt-service:
     build:
-      context: ./src/data-collector
-    image: data-collector_edge:0.0.2
-    restart: always
+      context: ./src/mqtt-service
+    image: mqtt-service:1.0.0
+    restart: unless-stopped
+    depends_on:
+      - influxdb
     networks:
       - proxy-redirect
-      - internal-network
-    depends_on: 
-      - influxdb
+      - app-net
     volumes:
-      - './publish/:/publish/'
-      - './cfg-data/:/cfg-data/'
+      - "./publish/:/publish/"
+      - "./cfg-data/:/cfg-data/"
     mem_limit: 100mb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
-  #### InfluxDB ####
+  #### Dashboard & Database InfluxDB ####
   influxdb:
     build:
       context: ./src/influxdb
-    image: influxdb_edge:0.0.1
-    restart: always
-    networks:
-      - internal-network
+    image: database_influxdb:2.6.1-alpine
+    restart: unless-stopped
     volumes:
-      - data:/var/lib/influxdb
-    mem_limit: 250mb
-
-  #### Grafana ####
-  grafana:
-    build:
-      context: ./src/grafana
-    image: grafana_edge:0.0.1
-    restart: always
+      - data-storage:/var/lib/influxdb
     networks:
-      - internal-network
-    volumes: 
-      - dashboard-storage:/var/lib/grafana
+      - app-net
     ports:
-      - "33000:3000"
-    mem_limit: 100mb
+      - "33000:8086"
+    mem_limit: 250mb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=root
+      - DOCKER_INFLUXDB_INIT_PASSWORD=changeMe1!
+      - DOCKER_INFLUXDB_INIT_ORG=edge
+      - DOCKER_INFLUXDB_INIT_BUCKET=databus_values
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=industrialedge
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
+#### Volumes ####
+volumes:
+  data-storage:
+    name: data-storage
 
 #### Network ####
 networks:
   proxy-redirect:
     external: true
     name: proxy-redirect
-  internal-network:
-    name: internal-network
-
-volumes:
-  data:
-  dashboard-storage:
-    name: dashboard-storage
+  app-net:
+    name: app-net

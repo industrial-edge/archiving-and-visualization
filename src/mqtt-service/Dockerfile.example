@@ -1,0 +1,21 @@
+FROM node:18.16.0-alpine
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+
+# Create the config repository
+RUN mkdir -p config
+
+# Copy default configuration
+COPY ./config/config-default.json ./config
+
+RUN npm install --production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 3000
+CMD [ "node", "server.js" ]

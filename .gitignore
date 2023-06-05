@@ -1,1 +1,4 @@
-src/data-collector/node_modules/*
+src/mqtt-service/node_modules
+developer-guide
+publish
+databus
