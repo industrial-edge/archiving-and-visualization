@@ -1,0 +1,73 @@
+{
+    "type": "object",
+    "required": [
+        "MQTT"
+    ],
+    "properties": {
+        "MQTT": {
+            "type": "object",
+            "default": {
+                "USERNAME": "edge",
+                "PASSWORD": "edge",
+                "HOST": "ie-databus",
+                "PORT": "1883",
+                "METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/opcuac1/dp",
+                "DATA_SOURCE_NAME": "Tank"
+            },
+            "required": [
+                "USERNAME",
+                "PASSWORD",
+                "DATA_SOURCE_NAME"
+            ],
+            "properties": {
+                "HOST": {
+                    "type": "string"
+                },
+                "PORT": {
+                    "type": "string"
+                },
+                "USERNAME": {
+                    "type": "string",
+                    "minLength": 4
+                },
+                "PASSWORD": {
+                    "type": "string",
+                    "minLength": 4
+                },
+                "METADATA_TOPIC_NAME": {
+                    "type": "string"
+                },
+                "DATA_SOURCE_NAME": {
+                    "type": "string"
+                }
+            }
+        },
+        "INFLUXDB": {
+            "type": "object",
+            "default": {
+                "HOST": "http://influxdb",
+                "PORT": "8086",
+                "ORG": "edge",
+                "BUCKET": "databus_values",
+                "TOKEN": "industrialedge"
+            },
+            "properties": {
+                "HOST": {
+                    "type": "string"
+                },
+                "PORT": {
+                    "type": "string"
+                },
+                "ORG": {
+                    "type": "string"
+                },
+                "BUCKET": {
+                    "type": "string"
+                },
+                "TOKEN": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

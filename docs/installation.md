@@ -1,147 +1,246 @@
+# Installation
+
+- [Installation](#installation)
+  - [Build Application](#build-application)
+    - [Download Repository](#download-repository)
+    - [Build docker images](#build-docker-images)
+  - [Upload Application to Industrial Edge Management](#upload-application-to-industrial-edge-management)
+    - [Connect your Industrial Edge App Publisher](#connect-your-industrial-edge-app-publisher)
+    - [Create new Application in Industrial Edge Management](#create-new-application-in-industrial-edge-management)
+    - [Configure Databus and OPC UA Connector](#configure-databus-and-opc-ua-connector)
+    - [Add Edge App configuration \& upload configuration file to Industrial Edge Management](#add-edge-app-configuration--upload-configuration-file-to-industrial-edge-management)
+      - [MQTT](#mqtt)
+      - [InfluxDB](#influxdb)
+      - [Add Configuration to application](#add-configuration-to-application)
+  - [Install Application on Industrial Edge Device](#install-application-on-industrial-edge-device)
+    - [Edge App configuration](#edge-app-configuration)
+      - [Databus](#databus)
+      - [User](#user)
+      - [Connector Configuration (OPC UA Connector)](#connector-configuration-opc-ua-connector)
+      - [InfluxDB](#influxdb-1)
+    - [Install Edge App](#install-edge-app)
+    - [Configure InfluxDB Dashboard](#configure-influxdb-dashboard)
+
 ## Build Application
-1. Clone this repository
 
-   ![gitclone](graphics/clonerepo.png)
+### Download Repository
 
-   STRG+SHIFT+P in VSCode:
+Download or clone the repository source code to your workstation.  
+![Github Clone Section](/docs/graphics/clonerepo.png)
 
-   ![gitclone](graphics/git2.png)
-   
-2. Enter application folder and build the application using the docker-compose build command:
+
+* Trough terminal:
+```bash
+git clone https://github.com/industrial-edge/archiving-and-operation.git
+```
+
+* Trough VSCode:  
+<kbd>CTRL</kbd>+<kbd>&uarr; SHIFT</kbd>+<kbd>P</kbd> or <kbd>F1</kbd> to open VSCode's command pallette and type `git clone`:
+
+![VS Code Git Clone command](/docs/graphics/git.png)
+
+### Build docker images
+1. This application demo comprises two files, namely Dockerfile.example, located in `src/influxdb` and `src/mqtt-service`. These files serve as exemplar Dockerfiles for constructing Docker images of the influxdb and mqtt services, respectively. Should you decide to utilize them, kindly rename both files to Dockerfile before proceeding to the subsequent step.
+
+2. Open terminal in the project root path where docker-compose.yml is located and execute:
 
     ```bash
     docker-compose build
     ```
 
-3. Create new Project in the Industrial Edge Management under **"My Projects" -> "Create Project"**
-   ![myproject](graphics/project.PNG)
+    This command builds the docker images of the services which are specified in the docker-compose.yml file.
+ 
+## Upload Application to Industrial Edge Management
 
-4. Create an Application and specify the required information:
-   ![myaaplication](graphics/app.PNG)
+Please find below a short description how to publish your application in your IEM.
 
-5. Go-To IE Publisher, and select newly created App. Then select **"+Configurations"**
-   ![sometext](graphics/addconfig.png)
+For more detailed information please see the section for [uploading apps to the IEM](https://github.com/industrial-edge/upload-app-to-industrial-edge-management).
 
-6. Add a new Configuration and enter all required fields:
-   ![sometext](graphics/addconfig2.png)
+### Connect your Industrial Edge App Publisher
+
+- Connect your Industrial Edge App Publisher to your docker engine
+- Connect your Industrial Edge App Publisher to your Industrial Edge Management
+
+### Create new Application in Industrial Edge Management
+
+1. Create a new Project or select a existing one
+2. Create new Application
+3. Import the [docker-compose](../docker-compose.yml) file using the **Import YAML** button   
+  
+***Warnings**   
+`Build (Detail) (services >> mqtt-service >> build) is not supported`    
+`Build (Detail) (services >> influxdb >> build) is not supported.`   
+  are caused by the fact, that the docker-compose file defines build commands for local build of the application's docker image which are not supported by the Industrial Edge App Publisher and **can safely be ignored***
+
+4. Click on `Review` and `Validate & Create`. When asked about the redirect URL, select the endpoint of the influxdb service:
+
+![iearedirect urlp](graphics/redirect_url.png)
+
+- **Start Upload** to transfer the app to Industrial Edge Management
+- Further information about using the Industrial Edge App Publisher can be found in the [IE Hub](https://iehub.eu1.edge.siemens.cloud/documents/appPublisher/en/start.html)
+
+---
+
+### Configure Databus and OPC UA Connector  
+
+1. Configure a user with password in the Databus for the OPC UA Connector and the Archiving & Operation Application for publishing and subscribing to topics on the Databus.
+  
+   ```txt
+   User name: edge 
+   Password: edge 
+   Topic: ie/# 
+   Permission: Publish and Subscribe
+   ```
+
+![iedatabus](graphics/iedatabus.png)
+
+1. Open OPC UA Connector Configuration from your Industrial Edge Management and add the PLC as a data source. You are free to choose whichever name for datasource you like, but take a note of the name as you would need to specify the same name in the configuration of the app during its installation.
+
+2. Add variables to collect data from PLC as described in [pre-requisites section](../README.md#prerequisite)
+Select following Datapoints using the Browse functionality:
+
+* GDB.signals.tankSignals.actLevel - (Read/100ms)
+* GDB.signals.tankSignals.actTemperature - (Read/100ms)
+* GDB.process.numberProduced - (Read/100ms)
+* GDB.process.numberFaulty - (Read/100ms)
+* GDB.hmiSignals.HMI.Nextbottle - (Read&Write/100ms)
+
+<details>
+  <summary>
+    In case of browse timeout you can also add the tags manually
+<small><i>Click to show/collapse.</i></small>
+  </summary>
+
+* `n=3;s="GDB"."signals"."tankSignals"."actLevel"`
+* `n=3;s="GDB"."signals"."tankSignals"."actTemperature"`  
+* `n=3;s="GDB"."process"."numberProduced"` 
+* `n=3;s="GDB"."process"."numberFaulty"`
+* `n=3;s="GDB"."hmiSignals"."HMI"."NextBottle"`
+
+</details>   
+
+
+![opc ua connector](graphics/opc_ua_connector.png)
+
+3. Enter Databus credentials <br>
+
+<a href="graphics/opc-ua-connector-bulk.png"><img src="graphics/opc-ua-connector-bulk.png" height="50%" width="50%" ></a>
+<br>
+
+### Add Edge App configuration & upload configuration file to Industrial Edge Management
+
+The MQTT Service can be configured with a form. The form is based on JSONForms. If no configuration is provided during app installation, the application uses default values seen in the following json-file `config-default.json`:
+
+```json
+{
+    "MQTT": {
+        "HOST": "ie-databus",
+        "PORT": "1883",
+        "USERNAME": "edge",
+        "PASSWORD": "edge",
+        "TOPIC_NAME": "ie/d/j/simatic/v1/opcuac1/dp",
+        "METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/opcuac1/dp",
+        "DATA_SOURCE_NAME": "Tank"
+    },
+    "INFLUXDB": {
+        "HOST": "http://influxdb:8086",
+        "PORT": "8086",
+        "ORG": "edge",
+        "BUCKET": "databus_values",
+        "TOKEN": "industrialedge"
+    }
+}
+```
+#### MQTT
+
+- HOST: This is the service name of the Databus
+- PORT: This is the port of the Databus
+- USER, PASSWORD: The user and password are configured in the Databus and used in the OPC UA Connector for accessing (publish, subscribe) to topics on the Databus
+- TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
+- METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
+- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector Configurator. Insert here the data source Name for your PLC-Connection
+
+#### InfluxDB
+
+- HOST: Service name of InfluxDB which is specified in docker-compose. Do not change unless you are trying to connect to a different instance of influxdb. 
+- PORT: Port on which the InfluxDB service is running. Do not change unless you are trying to connect to a different instance of influxdb. 
+- ORG: Initial organization created in the Influxdb upon creation. This value needs to correspond to the value set in `docker-compose.yml` file.
+- BUCKET: InfluxDB can have multiple database running in the same instance. Data which are collected from databus are written to that database. This value needs to correspond to the value set in `docker-compose.yml` file.
+- TOKEN: Administrator token used for authorization of your app in order to bootstrap the app and read and write data to the database. This value needs to correspond to the value set in `docker-compose.yml` file.
+
+#### Add Configuration to application
+1. Go to IE Publisher and select the newly created application. Then click the "+ Configurations" button.
+
+![Publisher configuration](/docs/graphics/addconfig.png)
+![Publisher configuration - Create new configuration](/docs/graphics/addconfig_2.png)
+
+2. Add new configuration and enter all required fields:
 
    ```txt
    Display Name: Configuration
    Description: JSONForms Configuration
    Host Path: ./cfg-data/
-   Add Template
-    - Name: JSONForms
-    - Description: JSONForms Configuration
-    - JSON Schema: set checkbox
-   ```
-   In the final step, add the file **/datacollector/config/config.json** as a template file. 
-   This template was creared with JSON Schema. To find out how to create your own template check out the IEM Operations Documentation.
-
-   ![sometext](graphics/addconfig3.png)
-
-   **Hint:** If no config file is selected during App installation, then the default values from **datacollector/config/env-config.json** are taken:
-
-   ```txt
-   {
-      "MQTT": {
-         "HOST": "ie-databus",
-         "PORT": "1883",
-         "USERNAME": "edge",
-         "PASSWORD": "edge",
-         "DEFAULT_TOPIC_NAME": "ie/d/j/simatic/v1/s7c1/dp/",
-         "DEFAULT_METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/s7c1/dp",
-         "DATA_SOURCE_NAME": "PLC_1"
-      },
-      "INFLUXDB": {
-         "HOST": "influxdb",
-         "PORT": "8086",
-         "USERNAME": "root",
-         "PASSWORD": "root",
-         "MEASUREMENT": "edge",
-         "DATABASE": "databus_values"
-      }
-   }
+   Add Template 
+   - Name: JSONForms
+   - Description: JSONForms Configuration
+   - JSON Schema: set checkbox
    ```
 
-7. Now select **"Add New Version"** and select **docker-compose v2.4**
-   
-   ![sometext](graphics/dockercompose.png)
+In the final step, add the file /cfg-data/config.json as a template file. This template was created with JSON Schema. To find out how to create your own template check out the [IEM Operations Documentation](https://support.industry.siemens.com/cs/ww/en/view/109814453).
 
-8. In the top right corner select **"Import YAML file"** and select the **docker-compose.yml** file from your directory. Click **"OK"**. The warnings can be ignored.
+![edge-app-configuration](graphics/addconfig_3.png)
 
-9. **Optional:** Configure a reverse proxy in the "Network"-section of the grafana service: 
+## Install Application on Industrial Edge Device
 
-   ![sometext](graphics/reverseproxy.png)
+### Edge App configuration
 
-   **Notice:** Port exposure must be removed in this case. To do this, simply select the trash-icon in the very bottom.
+Fill out Input-Form and select checkbox (check box green)
 
-   **Save** changes.
+![edge-app-configuration](graphics/configuration_3.png)
 
-10. Select **"Review"** then **"Validate & Create"** on the top right. Then select **"Create"**
-    
-    ![sometext](graphics/validatecreate.png)
+#### Databus
 
-11. Afterwards, select **"Start Upload"**.
+- MQTT Broker IP: optional
+- PORT: optional
 
-      ![sometext](graphics/startupload.png)
+#### User
 
-## Install Application on Edge Device
+- Username: required
+- Password: required
+
+#### Connector Configuration (OPC UA Connector)
+
+- Data Source Name: required
+- Connector Metadata Topic: optional
+
+#### InfluxDB
+
+- InfluxDB IP: optional
+- InfluxDB Port: optional
+- Bucket Name: optional
+- Organization: optional
+- Token: optional
 
 
-12. Once the App is successfully uploaded to your IEM, Go-To **"My Projects"** and select the newly created Application. Then select **"Install"**
+### Install Edge App
 
-      ![sometext](graphics/uploaddone.png)
+Install Edge Application to Industrial Edge Device and select app configuration
+![Install Application](graphics/install.png)
 
-13. In the **"Configurations"**-Tab, select the green checkmark and fill out the required information: 
+---
 
+### Configure InfluxDB Dashboard
 
-      ![sometext](graphics/displayconfig.png)
+1. Open Industrial Edge Device in Browser and open installed application
+2. Login to InfluxDB UI using the credentials set in docker-compose.yml, by default:  
+   Username: **root**  
+   Password: **changeMe1!**  
+3. InfluxDB Welcome Page: Open Dashboards from the left menu
+4. Click "+ Create Dashboards" button
+5. Select "Import Dashboard"
+6. Select the file located in `/src/influxdb/Dashboards/bottle_line_visualization.json` and click on "Import JSON as Dashboard"
+7. Open the newly imported Dashboard by clicking on "Bottle Line Visualization"
 
-      ```txt
-      MQTT Broker IP: ie-databus 
-      Port: 1883
-      User: edge
-      Password: edge
-      Data Source Name: PLC_1
-      InfluxDB IP: influxdb
-      Database name: databus_values
-      ```
+> **Note**  
+> Upon creation the Dashboard will show no data. It may take a moment before enough data coming from the Databus will be stored in the influxDB database and subsequently before it can be plotted in the provided dashboard.
 
-14. Install the Application on your Edge Device. 
-
-15. Open Grafana and login with following credentials, afterwards change password if needed:
-    
-    username: **admin**
-    password: **admin**
-
-    ![sometext](graphics/grafanalogin.png)
-    
-16. Go to **Data Sources** 
-    
-    ![sometext](graphics/datasources.png)
-
-17. add a new Datasource (InfluxDB), and enter the address **influxdb:8086**.
-
-    ![sometext](graphics/influxdata.png)
-
-18. In the bottom of the Datasource configuration, enter the database name **databus_values**. Then select **Save & Test**.
-
-    ![sometext](graphics/databus_values.png)
-
-    You should receive a notification "Data source is working". If not, you might have selected a different name in the config file.
-
-19. Make sure the S7-Connector Project is started and your PLC is in Start Mode. Set "GDB".hmiSignals.HMI_Start to TRUE on your PLC. 
-
-20. In Grafana, Add a new Panel in the Dashboard section. You will be able to select and configure your Datapoints.
-
-   ![sometext](graphics/grafanaplot.png)
-
-21. Select the values you would like to plot and remove the **"Group By" options** and the **"SELECT mean(value)"** option.
-
-   ![dashboard](graphics/dashboard_full.png)
-
-22. When finished with the dashboard, save it, then select settings in the top section to export it as a JSON-file. 
-
-   ![dashboard](graphics/json-dashboard.png)
-
-  Save its content as **"operation-panel.json"**. To learn how to incorporate this dashboard into your application, Check out **"Archiving and Operation"**.

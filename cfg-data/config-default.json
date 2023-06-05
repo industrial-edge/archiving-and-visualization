@@ -1,0 +1,17 @@
+{
+    "MQTT": {
+        "HOST": "ie-databus",
+        "PORT": "1883",
+        "USERNAME": "edge",
+        "PASSWORD": "edge",
+        "METADATA_TOPIC_NAME": "ie/m/j/simatic/v1/opcuac1/dp",
+        "DATA_SOURCE_NAME": "Tank"
+    },
+    "INFLUXDB": {
+        "HOST": "http://influxdb",
+        "PORT": "8086",
+        "ORG": "edge",
+        "BUCKET": "databus_values",
+        "TOKEN": "industrialedge"
+    }
+}
