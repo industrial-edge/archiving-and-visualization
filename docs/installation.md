@@ -1,9 +1,9 @@
 # Installation
 
 - [Installation](#installation)
-  - [Build Application](#build-application)
+  - [Build application](#build-application)
     - [Download Repository](#download-repository)
-    - [Build docker images](#build-docker-images)
+    - [Build docker image](#build-docker-image)
   - [Upload Application to Industrial Edge Management](#upload-application-to-industrial-edge-management)
     - [Connect your Industrial Edge App Publisher](#connect-your-industrial-edge-app-publisher)
     - [Create new Application in Industrial Edge Management](#create-new-application-in-industrial-edge-management)
@@ -21,34 +21,31 @@
     - [Install Edge App](#install-edge-app)
     - [Configure InfluxDB Dashboard](#configure-influxdb-dashboard)
 
-## Build Application
+## Build application
 
 ### Download Repository
 
 Download or clone the repository source code to your workstation.  
-![Github Clone Section](/docs/graphics/clonerepo.png)
+![Github Clone Section](graphics/clonerepo.png)
 
 
 * Trough terminal:
 ```bash
-git clone https://github.com/industrial-edge/archiving-and-operation.git
+git clone https://github.com/industrial-edge/archiving-and-visualization.git
 ```
 
 * Trough VSCode:  
 <kbd>CTRL</kbd>+<kbd>&uarr; SHIFT</kbd>+<kbd>P</kbd> or <kbd>F1</kbd> to open VSCode's command pallette and type `git clone`:
 
-![VS Code Git Clone command](/docs/graphics/git.png)
+![VS Code Git Clone command](graphics/git.png)
 
-### Build docker images
-1. This application demo comprises two files, namely Dockerfile.example, located in `src/influxdb` and `src/mqtt-service`. These files serve as exemplar Dockerfiles for constructing Docker images of the influxdb and mqtt services, respectively. Should you decide to utilize them, kindly rename both files to Dockerfile before proceeding to the subsequent step.
+### Build docker image
 
-2. Open terminal in the project root path where docker-compose.yml is located and execute:
-
-    ```bash
-    docker-compose build
-    ```
-
-    This command builds the docker images of the services which are specified in the docker-compose.yml file.
+- Navigate into `src/influxdb` and `src/mqtt-service` and find the file named `Dockerfile.example`. The `Dockerfile.example` is an example Dockerfile that can be used to build the docker image(s) of the service(s) that runs in this application example. If you choose to use these, rename them to `Dockerfile` before proceeding
+- Open a console in the root folder (where the `docker-compose` file is)
+- Use the `docker compose build` (replaces the older `docker-compose build`) command to build the docker image of the service which is specified in the docker-compose.yml file.
+- These Docker images can now be used to build your app with the Industrial Edge App Publisher
+- `docker images` can be used to check for the images
  
 ## Upload Application to Industrial Edge Management
 

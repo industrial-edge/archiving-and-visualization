@@ -14,7 +14,7 @@ Archiving and visualization demo application for Industrial Edge
   - [Installation](#installation)
   - [Documentation](#documentation)
   - [Contribution](#contribution)
-  - [License \& Legal Information](#license--legal-information)
+  - [License and Legal Information](#license-and-legal-information)
   - [Disclaimer](#disclaimer)
 
 ## Description
@@ -94,13 +94,13 @@ You can find the further information about the following steps in the [docs](doc
 - [Configure and install application to Industrial Edge Device](docs/installation.md#install-application-on-industrial-edge-device)
 
 ## Documentation
-
-- Here is a link to the [docs](docs/) of this application example.
+ 
 - You can find further documentation and help in the following links
   - [Industrial Edge Hub](https://iehub.eu1.edge.siemens.cloud/#/documentation)
-  - [Industrial Edge Forum](https://www.siemens.com/industrial-edge-forum)
-  - [Industrial Edge Landing page](https://www.siemens.com/global/en/products/automation/topic-areas/industrial-edge/production-machines.html)
-  - [Industrial Edge Documentation](https://industrial-edge.io/)
+  - [Industrial Edge Forum](https://forum.mendix.com/link/space/industrial-edge)
+  - [Industrial Edge landing page](https://new.siemens.com/global/en/products/automation/topic-areas/industrial-edge/simatic-edge.html)
+  - [Industrial Edge GitHub page](https://github.com/industrial-edge)
+  - [Industrial Edge documentation page](https://docs.eu1.edge.siemens.cloud/index.html)
   
 ## Contribution
 
@@ -109,9 +109,9 @@ Additionally everybody is free to propose any changes to this repository using P
 
 If you are interested in contributing via Pull Request, please check the [Contribution License Agreement](Siemens_CLA_1.1.pdf) and forward a signed copy to [industrialedge.industry@siemens.com](mailto:industrialedge.industry@siemens.com?subject=CLA%20Agreement%20Industrial-Edge).
 
-## License & Legal Information
+## License and Legal Information
 
-Please read the [Legal information](LICENSE.md).
+Please read the [Legal information](LICENSE.txt).
 
 ## Disclaimer
 
