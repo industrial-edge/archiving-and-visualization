@@ -31,7 +31,7 @@ Download or clone the repository source code to your workstation.
 
 * Trough terminal:
 ```bash
-git clone https://github.com/industrial-edge/qr-code-scanner.git
+git clone https://github.com/industrial-edge/archiving-and-visualization.git
 ```
 
 * Trough VSCode:  
