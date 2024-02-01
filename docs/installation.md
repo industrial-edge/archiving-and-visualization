@@ -26,7 +26,7 @@
 ### Download Repository
 
 Download or clone the repository source code to your workstation.  
-![Github Clone Section](graphics/clonerepo.png)
+![archiving_visualization_github](graphics/archiving_visualization_github.PNG)
 
 
 * Trough terminal:
