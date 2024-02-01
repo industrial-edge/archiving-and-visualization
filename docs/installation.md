@@ -91,7 +91,7 @@ For more detailed information please see the section for [uploading apps to the 
 
 ![iedatabus](graphics/iedatabus.png)
 
-1. Open OPC UA Connector Configuration from your Industrial Edge Management and add the PLC as a data source. You are free to choose whichever name for datasource you like, but take a note of the name as you would need to specify the same name in the configuration of the app during its installation.
+1. Open OPC UA Connector from your Industrial Edge Management and add the PLC as a data source. You are free to choose whichever name for datasource you like, but take a note of the name as you would need to specify the same name in the configuration of the app during its installation.
 
 2. Add variables to collect data from PLC as described in [pre-requisites section](../README.md#prerequisite)
 Select following Datapoints using the Browse functionality:
@@ -155,7 +155,7 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
 - USER, PASSWORD: The user and password are configured in the Databus and used in the OPC UA Connector for accessing (publish, subscribe) to topics on the Databus
 - TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
 - METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
-- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector Configurator. Insert here the data source Name for your PLC-Connection
+- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. Insert here the data source Name for your PLC-Connection
 
 #### InfluxDB
 
