@@ -45,6 +45,8 @@ You can find the further information about the application [here](docs/overview.
   - Databus V2.2.0-3
   - Databus Configurator V2.3.1-4
   - IE App Configuration Service V1.3.2
+  - IIH Registry Service V1.10.0
+  - Common import Converter V2.1.0
 - Industrial Edge Device (IEvD) V1.16.1-1-a
 - TIA Portal &geq; V18
 - PLC: CPU 1512 FW 2.8.3
