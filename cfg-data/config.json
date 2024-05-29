@@ -150,7 +150,7 @@
             "INFLUXDB": {
                 "type": "object",
                 "default": {
-                    "HOST": "http://influxdb",
+                    "HOST": "influxdb",
                     "PORT": "8086",
                     "ORG": "edge",
                     "BUCKET": "databus_values",

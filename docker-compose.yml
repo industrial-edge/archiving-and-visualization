@@ -29,7 +29,7 @@ services:
     image: database_influxdb:2.6.1-alpine
     restart: unless-stopped
     volumes:
-      - data-storage:/var/lib/influxdb
+      - data-storage:/var/lib/influxdb2
     networks:
       - app-net
     ports:
