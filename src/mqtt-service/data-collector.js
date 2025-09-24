@@ -25,7 +25,7 @@ let METADATA = {};
 
 /* define influxdb */
 const influx = new InfluxDB({
-  url: INFLUXDB.HOST + ":" + INFLUXDB.PORT,
+  url: "http://" + INFLUXDB.HOST + ":" + INFLUXDB.PORT,
   token: INFLUXDB.TOKEN,
 });
 const writeApi = influx.getWriteApi(INFLUXDB.ORG, INFLUXDB.BUCKET);
