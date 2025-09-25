@@ -36,20 +36,20 @@ You can find the further information about the application [here](docs/overview.
 ### Used Components
 
 - OS: Windows or Linux
-- Docker minimum V18.09
-- Docker Compose V2.0 – V2.12.2
-- Industrial Edge App Publisher (IEAP) &geq; V1.7.1
-- Industrial Edge Management (IEM) V1.14.10
-  - Common Configurator V1.9.0-4
-  - OPC UA Connector V2.0.1-0
-  - Databus V2.2.0-3
-  - Databus Configurator V2.3.1-4
-  - IE App Configuration Service V1.3.2
-  - IIH Registry Service V1.10.0
-  - Common import Converter V2.1.0
-- Industrial Edge Device (IEvD) V1.16.1-1-a
-- TIA Portal &geq; V18
-- PLC: CPU 1512 FW 2.8.3
+- Docker V28.4.0
+- Docker Compose V2.39.4
+- Industrial Edge App Publisher (IEAP) &geq; V1.22.10
+- Industrial Edge Management Virtual (IEMV) V2.5
+  - Edge Apps
+    - OPC UA Connector V2.4.2
+    - Databus V3.2.1
+    - Common import Converter V3.0.0
+  - IEM Apps
+    - Databus Configurator v3.2.2
+    - Common Connector Configurator v2.0.1
+- Industrial Edge Virtual Device (IEvD) V1.24.2.1-A
+- TIA Portal &geq; V19
+- PLC: CPU 1512
 
 ### TIA Project
 
@@ -65,11 +65,11 @@ The used TIA Portal project can be found in the [miscellaneous repository](https
 ## Prerequisite
 Use OPC UA Connector in bulk publish mode to collect datapoints from the Application example "Tank Application". Name the Data Source "Tank" and select following Datapoints using the Browse functionality:
 
-* GDB_signals_tankSignals_actLevel (Read/100ms)
-* GDB_signals_tankSignals_actTemperature (Read/100ms)
-* GDB_process_numberProduced (Read/100ms)
-* GDB_process_numberFaulty (Read/100ms)
-* GDB_hmiSignals_HMI_Nextbottle (Read&Write/100ms)
+* GDB.signals.tankSignals.actLevel (Read/100ms)
+* GDB.signals.tankSignals.actTemperature (Read/100ms)
+* GDB.process.numberProduced (Read/100ms)
+* GDB.process.numberFaulty (Read/100ms)
+* GDB.hmiSignals.HMI_Nextbottle (Read&Write/100ms)
 
 The Databus is configured with one topic: `ie/#` username: `edge` password: `edge`
 

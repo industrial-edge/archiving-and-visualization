@@ -61,7 +61,7 @@ For more detailed information please see the section for [uploading apps to the 
 ### Create new Application in Industrial Edge Management
 
 1. Create a new Project or select a existing one
-2. Create new Application
+2. Create new Application (Remember that you have the Icon App on this repo [here](/docs/graphics/Archiving-Operation-icon.png))
 3. Import the [docker-compose](../docker-compose.yml) file using the **Import YAML** button   
   
 ***Warnings**   
@@ -100,7 +100,7 @@ Select following Datapoints using the Browse functionality:
 * GDB.signals.tankSignals.actTemperature - (Read/100ms)
 * GDB.process.numberProduced - (Read/100ms)
 * GDB.process.numberFaulty - (Read/100ms)
-* GDB.hmiSignals.HMI.Nextbottle - (Read&Write/100ms)
+* GDB.hmiSignals.HMI_Nextbottle - (Read&Write/100ms)
 
 <details>
   <summary>
@@ -140,7 +140,7 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
         "DATA_SOURCE_NAME": "Tank"
     },
     "INFLUXDB": {
-        "HOST": "http://influxdb:8086",
+        "HOST": "influxdb",
         "PORT": "8086",
         "ORG": "edge",
         "BUCKET": "databus_values",
@@ -155,7 +155,8 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
 - USER, PASSWORD: The user and password are configured in the Databus and used in the OPC UA Connector for accessing (publish, subscribe) to topics on the Databus
 - TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
 - METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
-- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. Insert here the data source Name for your PLC-Connection
+- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.  
+![Source Name](/docs/graphics/sourceName.png)
 
 #### InfluxDB
 
