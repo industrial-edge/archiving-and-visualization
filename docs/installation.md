@@ -61,7 +61,7 @@ For more detailed information please see the section for [uploading apps to the 
 ### Create new Application in Industrial Edge Management
 
 1. Create a new Project or select a existing one
-2. Create new Application
+2. Create new Application (Remember that you have the Icon App on this repo [here](/docs/graphics/Archiving-Operation-icon.png))
 3. Import the [docker-compose](../docker-compose.yml) file using the **Import YAML** button   
   
 ***Warnings**   
