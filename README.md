@@ -65,11 +65,11 @@ The used TIA Portal project can be found in the [miscellaneous repository](https
 ## Prerequisite
 Use OPC UA Connector in bulk publish mode to collect datapoints from the Application example "Tank Application". Name the Data Source "Tank" and select following Datapoints using the Browse functionality:
 
-* GDB_signals_tankSignals_actLevel (Read/100ms)
-* GDB_signals_tankSignals_actTemperature (Read/100ms)
-* GDB_process_numberProduced (Read/100ms)
-* GDB_process_numberFaulty (Read/100ms)
-* GDB_hmiSignals_HMI_Nextbottle (Read&Write/100ms)
+* GDB.signals.tankSignals.actLevel (Read/100ms)
+* GDB.signals.tankSignals.actTemperature (Read/100ms)
+* GDB.process.numberProduced (Read/100ms)
+* GDB.process.numberFaulty (Read/100ms)
+* GDB.hmiSignals.HMI_Nextbottle (Read&Write/100ms)
 
 The Databus is configured with one topic: `ie/#` username: `edge` password: `edge`
 
