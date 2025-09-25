@@ -36,20 +36,20 @@ You can find the further information about the application [here](docs/overview.
 ### Used Components
 
 - OS: Windows or Linux
-- Docker minimum V18.09
-- Docker Compose V2.0 – V2.12.2
-- Industrial Edge App Publisher (IEAP) &geq; V1.7.1
-- Industrial Edge Management (IEM) V1.14.10
-  - Common Configurator V1.9.0-4
-  - OPC UA Connector V2.0.1-0
-  - Databus V2.2.0-3
-  - Databus Configurator V2.3.1-4
-  - IE App Configuration Service V1.3.2
-  - IIH Registry Service V1.10.0
-  - Common import Converter V2.1.0
-- Industrial Edge Device (IEvD) V1.16.1-1-a
-- TIA Portal &geq; V18
-- PLC: CPU 1512 FW 2.8.3
+- Docker V28.4.0
+- Docker Compose V2.39.4
+- Industrial Edge App Publisher (IEAP) &geq; V1.22.10
+- Industrial Edge Management Virtual (IEMV) V2.5
+  - Edge Apps
+    - OPC UA Connector V2.4.2
+    - Databus V3.2.1
+    - Common import Converter V3.0.0
+  - IEM Apps
+    - Databus Configurator v3.2.2
+    - Common Connector Configurator v2.0.1
+- Industrial Edge Virtual Device (IEvD) V1.24.2.1-A
+- TIA Portal &geq; V19
+- PLC: CPU 1512
 
 ### TIA Project
 
