@@ -100,7 +100,7 @@ Select following Datapoints using the Browse functionality:
 * GDB.signals.tankSignals.actTemperature - (Read/100ms)
 * GDB.process.numberProduced - (Read/100ms)
 * GDB.process.numberFaulty - (Read/100ms)
-* GDB.hmiSignals.HMI.Nextbottle - (Read&Write/100ms)
+* GDB.hmiSignals.HMI_Nextbottle - (Read&Write/100ms)
 
 <details>
   <summary>
