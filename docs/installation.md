@@ -140,7 +140,7 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
         "DATA_SOURCE_NAME": "Tank"
     },
     "INFLUXDB": {
-        "HOST": "http://influxdb:8086",
+        "HOST": "influxdb",
         "PORT": "8086",
         "ORG": "edge",
         "BUCKET": "databus_values",
