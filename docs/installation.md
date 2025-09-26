@@ -78,7 +78,7 @@ For more detailed information please see the section for [uploading apps to the 
 
 ---
 
-### Configure Databus and OPC UA Connector  
+### Configure Databus  
 
 1. Configure a user with password in the Databus for the OPC UA Connector and the Archiving & Operation Application for publishing and subscribing to topics on the Databus.
   
@@ -91,7 +91,22 @@ For more detailed information please see the section for [uploading apps to the 
 
 ![iedatabus](graphics/iedatabus.png)
 
-1. Open OPC UA Connector from your Industrial Edge Management and add the PLC as a data source. You are free to choose whichever name for datasource you like, but take a note of the name as you would need to specify the same name in the configuration of the app during its installation.
+### Configure OPC UA Connector
+
+1. Open Common Configurator App, first of all you have to connect this app with the pre-configured Databus. To do this, go on the left menu to Settings>Databus Credentials. Click on Add on Data Publisher.
+
+![databusconf](/docs/graphics/ComConf_Databus1.png)
+
+2. There, fill these fields with the next screenshot data. Don't forget to activate the checkboxes to share the same information for the subscriber part. The User and Password that you have to use, are the same that you used when you configure the Databus on the previous point.
+
+![databusconf2](/docs/graphics/ComConf_Databus2.png)
+
+3. If you are connected to the Databus, you will see something like this
+
+![databusconf3](/docs/graphics/ComConf_Databus3.png)
+
+4. Next step will be configure the OPC UA Connector.  
+
 
 2. Add variables to collect data from PLC as described in [pre-requisites section](../README.md#prerequisite)
 Select following Datapoints using the Browse functionality:
@@ -119,10 +134,6 @@ Select following Datapoints using the Browse functionality:
 
 ![opc ua connector](graphics/opc_ua_connector.png)
 
-3. Enter Databus credentials <br>
-
-<a href="graphics/opc-ua-connector-bulk.png"><img src="graphics/opc-ua-connector-bulk.png" height="50%" width="50%" ></a>
-<br>
 
 ### Add Edge App configuration & upload configuration file to Industrial Edge Management
 
@@ -236,7 +247,7 @@ Install Edge Application to Industrial Edge Device and select app configuration
 3. InfluxDB Welcome Page: Open Dashboards from the left menu
 4. Click "+ Create Dashboards" button
 5. Select "Import Dashboard"
-6. Select the file located in `/src/influxdb/Dashboards/bottle_line_visualization.json` and click on "Import JSON as Dashboard"
+6. Select the file located in [/src/influxdb/Dashboards/NewBottleLineVisualization.json](/src/influxdb/Dashboards/NewBottleLineVisualization.json) and click on "Import JSON as Dashboard"
 7. Open the newly imported Dashboard by clicking on "Bottle Line Visualization"
 
 > **Note**  
