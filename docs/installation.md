@@ -105,17 +105,29 @@ For more detailed information please see the section for [uploading apps to the 
 
 ![databusconf3](/docs/graphics/ComConf_Databus3.png)
 
-4. Next step will be configure the OPC UA Connector.  
+4. Next step will be configure the OPC UA Connector. Then, on Common Configurator App got to "get data" on the left menu. Here click on "OPC UA Connector" that you are going to see on this section. Add a Data Source and introduce the Required Information of your OPC UA Server.
 
+![opcuaconf1](/docs/graphics/OPCUAConf1.png)
 
-2. Add variables to collect data from PLC as described in [pre-requisites section](../README.md#prerequisite)
-Select following Datapoints using the Browse functionality:
+_Note: The name of the Data Source will be very important for the next steps_
+
+5. Browse Tags and select the tags that you want to use, on this case, we are going to take the tags described on the [pre-requisites section](../README.md#prerequisite)
+
+![opcuaconf2](/docs/graphics/OPCUAConf2.png)
+
+The tags to add are:
 
 * GDB.signals.tankSignals.actLevel - (Read/100ms)
 * GDB.signals.tankSignals.actTemperature - (Read/100ms)
 * GDB.process.numberProduced - (Read/100ms)
 * GDB.process.numberFaulty - (Read/100ms)
 * GDB.hmiSignals.HMI_Nextbottle - (Read&Write/100ms)
+
+_Note: Remember to save it adding correctly the acquisition cycle and Access mode specified._
+
+6. When you have added to your DataBase the tags clicking on top right "Save to Import", yo have to click on "Add to Data Source" on the bottom left to finally see the tags resume that you want to deploy it. Then, click on top right "deploy". Don't forget to fill the checkbox on the left of tags name.
+
+![opcuaconf3](/docs/graphics/OPCUAConf3.png)
 
 <details>
   <summary>
@@ -129,10 +141,7 @@ Select following Datapoints using the Browse functionality:
 * `n=3;s="GDB"."process"."numberFaulty"`
 * `n=3;s="GDB"."hmiSignals"."HMI"."NextBottle"`
 
-</details>   
-
-
-![opc ua connector](graphics/opc_ua_connector.png)
+</details>
 
 
 ### Add Edge App configuration & upload configuration file to Industrial Edge Management
@@ -167,7 +176,6 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
 - TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
 - METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
 - DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.  
-![Source Name](/docs/graphics/sourceName.png)
 
 #### InfluxDB
 
