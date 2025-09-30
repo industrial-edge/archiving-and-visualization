@@ -99,11 +99,11 @@ For more detailed information please see the section for [uploading apps to the 
 
 2. There, fill these fields with the next screenshot data. Don't forget to activate the checkboxes to share the same information for the subscriber part. The User and Password that you have to use, are the same that you used when you configure the Databus on the previous point.
 
-![databusconf2](/docs/graphics/ComConf_Databus2.png)
+![databusconf2](/docs/graphics/ComConf_databus2.png)
 
 3. If you are connected to the Databus, you will see something like this
 
-![databusconf3](/docs/graphics/ComConf_Databus3.png)
+![databusconf3](/docs/graphics/ComConf_Databus3png.png)
 
 4. Next step will be configure the OPC UA Connector. Then, on Common Configurator App got to "get data" on the left menu. Here click on "OPC UA Connector" that you are going to see on this section. Add a Data Source and introduce the Required Information of your OPC UA Server.
 
@@ -127,7 +127,7 @@ _Note: Remember to save it adding correctly the acquisition cycle and Access mod
 
 6. When you have added to your DataBase the tags clicking on top right "Save to Import", yo have to click on "Add to Data Source" on the bottom left to finally see the tags resume that you want to deploy it. Then, click on top right "deploy". Don't forget to fill the checkbox on the left of tags name.
 
-![opcuaconf3](/docs/graphics/OPCUAConf3.png)
+![opcuaconf3](/docs/graphics/OPCUAconf3.png)
 
 <details>
   <summary>
