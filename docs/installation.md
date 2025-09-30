@@ -260,6 +260,8 @@ Install Edge Application to Industrial Edge Device and select app configuration
 6. Select the file located in [/src/influxdb/Dashboards/NewBottleLineVisualization.json](/src/influxdb/Dashboards/NewBottleLineVisualization.json) and click on "Import JSON as Dashboard"
 7. Open the newly imported Dashboard by clicking on "Bottle Line Visualization"
 
+![dashboard](/docs/graphics/dahsboard.png)
+
 > **Note**  
 > Upon creation the Dashboard will show no data. It may take a moment before enough data coming from the Databus will be stored in the influxDB database and subsequently before it can be plotted in the provided dashboard.
 
