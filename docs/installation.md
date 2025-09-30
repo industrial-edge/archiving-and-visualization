@@ -175,7 +175,9 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
 - USER, PASSWORD: The user and password are configured in the Databus and used in the OPC UA Connector for accessing (publish, subscribe) to topics on the Databus
 - TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
 - METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
-- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.  
+- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.
+
+![datasourcename](/docs/graphics/name_source.png)
 
 #### InfluxDB
 
