@@ -78,7 +78,7 @@ For more detailed information please see the section for [uploading apps to the 
 
 ---
 
-### Configure Databus and OPC UA Connector  
+### Configure Databus  
 
 1. Configure a user with password in the Databus for the OPC UA Connector and the Archiving & Operation Application for publishing and subscribing to topics on the Databus.
   
@@ -91,16 +91,43 @@ For more detailed information please see the section for [uploading apps to the 
 
 ![iedatabus](graphics/iedatabus.png)
 
-1. Open OPC UA Connector from your Industrial Edge Management and add the PLC as a data source. You are free to choose whichever name for datasource you like, but take a note of the name as you would need to specify the same name in the configuration of the app during its installation.
+### Configure OPC UA Connector
 
-2. Add variables to collect data from PLC as described in [pre-requisites section](../README.md#prerequisite)
-Select following Datapoints using the Browse functionality:
+1. Open Common Configurator App, first of all you have to connect this app with the pre-configured Databus. To do this, go on the left menu to Settings>Databus Credentials. Click on Add on Data Publisher.
+
+![databusconf](/docs/graphics/ComConf_Databus1.png)
+
+2. There, fill these fields with the next screenshot data. Don't forget to activate the checkboxes to share the same information for the subscriber part. The User and Password that you have to use, are the same that you used when you configure the Databus on the previous point.
+
+![databusconf2](/docs/graphics/ComConf_databus2.png)
+
+3. If you are connected to the Databus, you will see something like this
+
+![databusconf3](/docs/graphics/ComConf_Databus3png.png)
+
+4. Next step will be configure the OPC UA Connector. Then, on Common Configurator App got to "get data" on the left menu. Here click on "OPC UA Connector" that you are going to see on this section. Add a Data Source and introduce the Required Information of your OPC UA Server.
+
+![opcuaconf1](/docs/graphics/OPCUAConf1.png)
+
+_Note: The name of the Data Source will be very important for the next steps_
+
+5. Browse Tags and select the tags that you want to use, on this case, we are going to take the tags described on the [pre-requisites section](../README.md#prerequisite)
+
+![opcuaconf2](/docs/graphics/OPCUAConf2.png)
+
+The tags to add are:
 
 * GDB.signals.tankSignals.actLevel - (Read/100ms)
 * GDB.signals.tankSignals.actTemperature - (Read/100ms)
 * GDB.process.numberProduced - (Read/100ms)
 * GDB.process.numberFaulty - (Read/100ms)
 * GDB.hmiSignals.HMI_Nextbottle - (Read&Write/100ms)
+
+_Note: Remember to save it adding correctly the acquisition cycle and Access mode specified._
+
+6. When you have added to your DataBase the tags clicking on top right "Save to Import", yo have to click on "Add to Data Source" on the bottom left to finally see the tags resume that you want to deploy it. Then, click on top right "deploy". Don't forget to fill the checkbox on the left of tags name.
+
+![opcuaconf3](/docs/graphics/OPCUAconf3.png)
 
 <details>
   <summary>
@@ -114,15 +141,8 @@ Select following Datapoints using the Browse functionality:
 * `n=3;s="GDB"."process"."numberFaulty"`
 * `n=3;s="GDB"."hmiSignals"."HMI"."NextBottle"`
 
-</details>   
+</details>
 
-
-![opc ua connector](graphics/opc_ua_connector.png)
-
-3. Enter Databus credentials <br>
-
-<a href="graphics/opc-ua-connector-bulk.png"><img src="graphics/opc-ua-connector-bulk.png" height="50%" width="50%" ></a>
-<br>
 
 ### Add Edge App configuration & upload configuration file to Industrial Edge Management
 
@@ -155,8 +175,9 @@ The MQTT Service can be configured with a form. The form is based on JSONForms. 
 - USER, PASSWORD: The user and password are configured in the Databus and used in the OPC UA Connector for accessing (publish, subscribe) to topics on the Databus
 - TOPIC_NAME: This is the default topic root path for data of the OPC UA Connector
 - METADATA_TOPIC_NAME: This is the default topic root path for metadata of the OPC UA Connector
-- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.  
-![Source Name](/docs/graphics/sourceName.png)
+- DATA_SOURCE_NAME The data source Name is configured in the OPC UA Connector. **Insert here the data source Name for your OPCUA SOURCE**. If you don't change it, it is not going to work anymore.
+
+![datasourcename](/docs/graphics/name_source.png)
 
 #### InfluxDB
 
@@ -236,8 +257,10 @@ Install Edge Application to Industrial Edge Device and select app configuration
 3. InfluxDB Welcome Page: Open Dashboards from the left menu
 4. Click "+ Create Dashboards" button
 5. Select "Import Dashboard"
-6. Select the file located in `/src/influxdb/Dashboards/bottle_line_visualization.json` and click on "Import JSON as Dashboard"
+6. Select the file located in [/src/influxdb/Dashboards/NewBottleLineVisualization.json](/src/influxdb/Dashboards/NewBottleLineVisualization.json) and click on "Import JSON as Dashboard"
 7. Open the newly imported Dashboard by clicking on "Bottle Line Visualization"
+
+![dashboard](/docs/graphics/dahsboard.png)
 
 > **Note**  
 > Upon creation the Dashboard will show no data. It may take a moment before enough data coming from the Databus will be stored in the influxDB database and subsequently before it can be plotted in the provided dashboard.
